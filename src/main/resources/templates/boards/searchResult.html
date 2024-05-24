@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Result</title>
+</head>
+<body>
+
+<h1>검색 결과</h1>
+
+<form action="/search" method="get">
+    <button class="search-button" type="submit">Search</button>
+    <input class="search-input" type="text" name="search" placeholder="Enter search keyword">
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>등록일</th>
+    </tr>
+    </thead>
+    <tbody>
+<!--     검색 결과를 반복해서 표시 -->
+    <tr th:each="board : ${searchBoards}">
+        <td th:text="${board.id}">Id</td>
+        <td>
+            <a th:href="@{/view/{id} (id=${board.id})}"th:text="${board.title}"></a>
+        </td>
+        <td th:text="${board.name}">Name</td>
+        <td th:text="${board.getFormattedCreatedAtDate()}">Created At</td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${searchBoards.totalPages > 1}">
+    <ul>
+        <li th:each="i : ${#numbers.sequence(1, searchBoards.totalPages)}">
+            <a th:href="@{'/search?page=' + ${i} + '&search=' + ${search}}" th:text="${i}"></a>
+        </li>
+    </ul>
+</div>
+<a th:href="@{/writeform}" class="write-link">글쓰기</a>
+<a th:href="@{/list}" class="write-link">List</a>
+</body>
+<link rel="stylesheet" th:href="@{/css/board.css}">
+</html>

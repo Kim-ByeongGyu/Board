@@ -1,0 +1,113 @@
+body {
+    font-family: "Arial", sans-serif;
+    margin: 40px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th,
+td {
+    border: 1px solid #cccccc;
+    text-align: left;
+    padding: 8px;
+}
+th {
+    background-color: #eeeeee;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    display: inline;
+    margin-right: 5px;
+}
+li a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.write-link {
+    float: right;
+    text-align: center;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 15px;
+    margin: 20px 5px;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+ }
+.search-input {
+    float: right;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+    height: 40px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+}
+.search-button {
+    float: right;
+    width: 130px;
+    height: 44px;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+    border: none;
+    background-color:  #007bff;
+    color: #ffffff;
+}
+.search-button:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    direction: rtl;
+    z-index: -1;
+    box-shadow:
+            -7px -7px 20px 0px #fff9,
+            -4px -4px 5px 0px #fff9,
+            7px 7px 20px 0px #0002,
+            4px 4px 5px 0px #0001;
+    transition: all 0.3s ease;
+}
+.search-button:hover:after {
+    left: auto;
+    right: 0;
+    width: 100%;
+}
+h1 {
+    width: 50%;
+    height: 30px;
+    float: left;
+    margin-top: 0px;
+}

@@ -21,15 +21,33 @@ public class BoardService {
     }
 
     public Page<Board> findAll(Pageable pageable) {
-        Pageable sortedByAscCteareAt = PageRequest.of(
+        Pageable sortedByDescCteareAt = PageRequest.of(
                 pageable.getPageNumber(), pageable.getPageSize(),
-                Sort.by(Sort.Direction.ASC, "created_at"));
+                Sort.by(Sort.Direction.DESC, "created_at"));
 
-        return boardRepository.findAll(sortedByAscCteareAt);
+        return boardRepository.findAll(sortedByDescCteareAt);
+    }
+
+    @Transactional(readOnly = true)
+    public Board findBoardById(Long id) {
+        return boardRepository.findById(id).orElse(null);
     }
 
     @Transactional
     public Board save(Board board) {
         return boardRepository.save(board);
+    }
+
+    @Transactional
+    public void delete(Board board) {
+        boardRepository.delete(board);
+    }
+
+    @Transactional
+    public Page<Board> search(String query, Pageable pageable) {
+        Pageable sortedByDescCteareAt = PageRequest.of(
+                pageable.getPageNumber(), pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "created_at"));
+        return boardRepository.findByTitleContaining(query, sortedByDescCteareAt);
     }
 }
