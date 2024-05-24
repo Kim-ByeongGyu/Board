@@ -29,7 +29,6 @@ public class Board {
     public String getFormattedCreatedAtDateTime() {
         return created_at.format(DateTimeFormatter.ofPattern("YYYY/MM/dd hh:mm"));
     }
-
     public String getFormattedUpdatedAt() {
         return updated_at.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }

@@ -15,11 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardService {
     private final BoardRepository boardRepository;
 
+    // 전부 출력
     @Transactional(readOnly = true)
     public Iterable<Board> findAll() {
         return boardRepository.findAll();
     }
-
+    // + 페이징 출력
     public Page<Board> findAll(Pageable pageable) {
         Pageable sortedByDescCteareAt = PageRequest.of(
                 pageable.getPageNumber(), pageable.getPageSize(),
@@ -28,26 +29,31 @@ public class BoardService {
         return boardRepository.findAll(sortedByDescCteareAt);
     }
 
+    // 하나 출력
     @Transactional(readOnly = true)
     public Board findBoardById(Long id) {
         return boardRepository.findById(id).orElse(null);
     }
 
+    // 저장
     @Transactional
     public Board save(Board board) {
         return boardRepository.save(board);
     }
 
+    // 삭제
     @Transactional
     public void delete(Board board) {
         boardRepository.delete(board);
     }
 
+    // 제목으로 검색
+    // 해당 단어 포함하면 출력
     @Transactional
-    public Page<Board> search(String query, Pageable pageable) {
+    public Page<Board> search(String search, Pageable pageable) {
         Pageable sortedByDescCteareAt = PageRequest.of(
                 pageable.getPageNumber(), pageable.getPageSize(),
                 Sort.by(Sort.Direction.DESC, "created_at"));
-        return boardRepository.findByTitleContaining(query, sortedByDescCteareAt);
+        return boardRepository.findByTitleContaining(search, sortedByDescCteareAt);
     }
 }

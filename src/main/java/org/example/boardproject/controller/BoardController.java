@@ -2,9 +2,7 @@ package org.example.boardproject.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.boardproject.domain.Board;
-import org.example.boardproject.repository.BoardRepository;
 import org.example.boardproject.service.BoardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +16,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
-    @Autowired
-    private BoardRepository boardRepository;
+
     // 출력
     @GetMapping("/list")
     public String list(Model model,
@@ -112,7 +109,6 @@ public class BoardController {
                          @RequestParam(defaultValue = "5") int size,
                          Model model) {
         Pageable pageable = PageRequest.of(page-1, size); // 페이지당 10개의 결과를 보여줌
-//        Page<Board> searchBoards = boardRepository.findByTitleContaining(search, pageable);
         Page<Board> searchBoards = boardService.search(search, pageable);
         model.addAttribute("searchBoards", searchBoards);
         model.addAttribute("currentPage", page);

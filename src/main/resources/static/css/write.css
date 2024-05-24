@@ -57,3 +57,6 @@ button:hover:after {
 .tag {
     margin-bottom: 10px;
 }
+.error {
+    color: red;
+}

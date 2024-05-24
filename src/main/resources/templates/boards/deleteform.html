@@ -12,7 +12,7 @@
         <label>Password</label><br>
         <input type="password" id="password" th:field="*{password}" required/><br>
         <div>
-            <p style="color:red;" th:text="${error}"></p>
+            <p class="error" th:text="${error}"></p>
         </div>
     </div>
     <button type="submit" value="Delete">Delete</button>
