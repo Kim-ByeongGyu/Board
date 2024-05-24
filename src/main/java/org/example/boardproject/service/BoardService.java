@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // 전부 출력
     @Transactional(readOnly = true)
@@ -38,6 +40,8 @@ public class BoardService {
     // 저장
     @Transactional
     public Board save(Board board) {
+        String hashedPassword = passwordEncoder.encode(board.getPassword());
+        board.setPassword(hashedPassword);
         return boardRepository.save(board);
     }
 

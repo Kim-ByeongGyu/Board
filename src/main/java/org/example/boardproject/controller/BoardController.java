@@ -6,6 +6,7 @@ import org.example.boardproject.service.BoardService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
-
+    private final PasswordEncoder passwordEncoder;
     // 출력
     @GetMapping("/list")
     public String list(Model model,
@@ -66,10 +67,15 @@ public class BoardController {
                          @RequestParam String password,
                          Model model) {
         Board original = boardService.findBoardById(id);
-        if (!password.equals(original.getPassword())) {
+//        if (!password.equals(original.getPassword())) {
+//            model.addAttribute("error", "Incorrect password.");
+//            return "boards/updateform";
+//        }
+        if (!passwordEncoder.matches(password, original.getPassword())) {
             model.addAttribute("error", "Incorrect password.");
             return "boards/updateform";
         }
+
         board.setCreated_at(original.getCreated_at());
         board.setUpdated_at(LocalDateTime.now());
         boardService.save(board);
@@ -91,8 +97,14 @@ public class BoardController {
                          Model model) {
         Board original = boardService.findBoardById(id);
 
-        if (!password.equals(original.getPassword())) {
-            // 비밀번호가 일치하지 않는 경우 처리
+//        if (!password.equals(original.getPassword())) {
+//            // 비밀번호가 일치하지 않는 경우 처리
+//            model.addAttribute("error", "Incorrect password.");
+//            return "boards/deleteform";
+//        }
+
+        if (!passwordEncoder.matches(password, original.getPassword())) {
+            // 입력한 비밀번호와 저장된 비밀번호가 일치하지 않는 경우
             model.addAttribute("error", "Incorrect password.");
             return "boards/deleteform";
         }
